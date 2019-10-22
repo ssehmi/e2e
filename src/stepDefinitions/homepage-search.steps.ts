@@ -5,10 +5,10 @@ import homepage from '../pages/Homepage';
 @binding()
 export class HomepageSearchSteps {
     @given(/^I am on the search page$/)
-    public givenOnHomepage() {
+    public async givenOnHomepage () {
         homepage.open();
         const title = browser.getTitle();
-        const seoTitle = homepage.getTextFromSource('title');
+        const seoTitle = await homepage.getTextFromSource('title');
 
         assert.equal(seoTitle, 'Google');
         assert.equal(title, 'Google');

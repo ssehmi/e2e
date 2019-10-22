@@ -1,6 +1,13 @@
+const fetch = require('node-fetch');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
 export default abstract class Page {
-    public open (path: string): void {
-        browser.url(path)
+    private _path: string;
+
+    public open(path: string): void {
+        this._path = path;
+        browser.url(path);
     }
 
     /**
@@ -8,14 +15,24 @@ export default abstract class Page {
      * This allows the view source of the page to be inspected to verify its the same as the
      * DOM when the clien renders
      */
-    public getTextFromSource(selector: string): string {
-        const pageSource = browser.getPageSource();
-
-        const text = browser.execute((pagesource: string, queryElement: string) => {
-            let documentFragment = document.createRange().createContextualFragment(pagesource);
-            return documentFragment.querySelector(queryElement).textContent;
-        }, pageSource, selector);
-
+    public async getTextFromSource(selector: string): Promise<string> {
+        const text = await fetch(this._path)
+            .then(res => res.text())
+            .then(htmlsource => {
+                const dom = new JSDOM(htmlsource);
+                return dom.window.document.querySelector(selector).textContent;
+                // return browser.execute(
+                //     (pagesource: string, queryElement: string) => {
+                //         let documentFragment = document
+                //             .createRange()
+                //             .createContextualFragment(pagesource);
+                //         return documentFragment.querySelector(queryElement)
+                //             .textContent;
+                //     },
+                //     htmlsource,
+                //     selector
+                // );
+            });
         return text;
     }
 }

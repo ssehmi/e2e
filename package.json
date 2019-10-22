@@ -20,8 +20,6 @@
     "@wdio/spec-reporter": "^5.15.2",
     "@wdio/sync": "^5.15.1",
     "chai": "^4.2.0",
-    "chromedriver": "^77.0.0",
-    "cucumber-pretty": "^6.0.0",
     "cucumber-tsflow": "^3.2.0",
     "prettier": "^1.18.2",
     "ts-node": "^8.4.1",
@@ -29,5 +27,10 @@
     "typescript": "^3.6.4",
     "wdio-chromedriver-service": "^5.0.2",
     "webdriverio": "^5.15.2"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "chromedriver": "^77.0.0",
+    "jsdom": "^15.2.0"
   }
 }
