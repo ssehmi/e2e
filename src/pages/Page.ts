@@ -13,26 +13,14 @@ export default abstract class Page {
     /**
      * For SSR rendered apps the client can render different content to the server
      * This allows the view source of the page to be inspected to verify its the same as the
-     * DOM when the clien renders
+     * DOM when the client renders
      */
-    public async getTextFromSource(selector: string): Promise<string> {
-        const text = await fetch(this._path)
+    public async getSourceDom(): Promise<Document> {
+        return await fetch(this._path)
             .then(res => res.text())
             .then(htmlsource => {
                 const dom = new JSDOM(htmlsource);
-                return dom.window.document.querySelector(selector).textContent;
-                // return browser.execute(
-                //     (pagesource: string, queryElement: string) => {
-                //         let documentFragment = document
-                //             .createRange()
-                //             .createContextualFragment(pagesource);
-                //         return documentFragment.querySelector(queryElement)
-                //             .textContent;
-                //     },
-                //     htmlsource,
-                //     selector
-                // );
+                return dom.window.document;
             });
-        return text;
     }
 }

@@ -8,17 +8,16 @@ export class HomepageSearchSteps {
     public async givenOnHomepage () {
         homepage.open();
         const title = browser.getTitle();
-        const seoTitle = await homepage.getTextFromSource('title');
+        const pageSource = await homepage.getSourceDom();
+        const seoTitle = pageSource.querySelector('title').textContent;
 
         assert.equal(seoTitle, 'Google');
         assert.equal(title, 'Google');
     }
 
     @when(/^I enter "([^"]*)" into the search box$/)
-    public whenISearch(arg1) {
+    public whenIEnterSearchText(arg1) {
         homepage.enterText(arg1);
-        const searchText = homepage.searchInput.getValue();
-        assert.equal(searchText, arg1);
     }
 
     @when(/^I click the search button$/)
