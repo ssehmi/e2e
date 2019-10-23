@@ -1,3 +1,30 @@
+const debug = !!process.env.DEBUG;
+const execArgv = debug ? ['--inspect'] : [];
+const stepTimout = debug ? (24 * 60 * 60 * 1000) : 6000;
+const capabilities = debug ? [{ browserName: 'chrome' }] : [{
+        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
+        // grid with only 5 firefox instances available you can make sure that not more than
+        // 5 instances get started at a time.
+        maxInstances: 5,
+        //
+        browserName: 'chrome',
+        // If outputDir is provided WebdriverIO can capture driver session logs
+        // it is possible to configure which logTypes to include/exclude.
+        // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
+        // excludeDriverLogs: ['bugreport', 'server'],
+        'goog:chromeOptions': {
+            // to run chrome headless the following flags are required
+            // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
+            args: [
+                '--headless',
+                '--disable-gpu',
+                '--disable-software-rasterizer'
+            ]
+        }
+    }];
+
+const maxInstances = debug ? 1 : 10;
+
 exports.config = {
     //
     // ====================
@@ -42,33 +69,13 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: maxInstances,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
-    capabilities: [{
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instances available you can make sure that not more than
-        // 5 instances get started at a time.
-        maxInstances: 5,
-        //
-        browserName: 'chrome',
-        // If outputDir is provided WebdriverIO can capture driver session logs
-        // it is possible to configure which logTypes to include/exclude.
-        // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-        // excludeDriverLogs: ['bugreport', 'server'],
-        'goog:chromeOptions': {
-            // to run chrome headless the following flags are required
-            // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-            args: [
-                '--headless',
-                '--disable-gpu',
-                '--disable-software-rasterizer'
-            ]
-        }
-    }],
+    capabilities: capabilities,
     //
     // ===================
     // Test Configurations
@@ -77,7 +84,9 @@ exports.config = {
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
     logLevel: 'silent',
-    sync: true,
+
+    // in debug mode passes --inspect
+    execArgv: execArgv,
     //
     // Set specific log levels per logger
     // loggers:
@@ -152,7 +161,7 @@ exports.config = {
         profile: [],        // <string[]> (name) specify the profile to use
         strict: false,      // <boolean> fail if there are any undefined or pending steps
         tagExpression: '',  // <string> (expression) only execute the features or scenarios with tags matching the expression
-        timeout: 60000,     // <number> timeout for step definitions
+        timeout: stepTimout,     // <number> timeout for step definitions
         ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings
         requireModule: [ // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
             'tsconfig-paths/register',

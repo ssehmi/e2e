@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "wdio",
+    "test:debug": "DEBUG=true wdio",
     "allurereport": "allure generate ./allure-results --clean && allure open"
   },
   "author": "",
