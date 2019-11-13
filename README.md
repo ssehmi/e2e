@@ -14,7 +14,6 @@
 -   Typescirpt Cucumber step decorators
 -   Chai For assertions
 -   Selenium Standalone with chrome and firefox capabilties in headless mode
--   Helper method to test SSR Apps so that SEO can be verified by looking at page DOM rendered by client and server.
 -   Vscode launch configuration to debug tests
 
 ## Debugging Tests

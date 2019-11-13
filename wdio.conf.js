@@ -36,6 +36,7 @@ const capabilities = debug
       ];
 
 const maxInstances = debug ? 1 : 10;
+let scenarioCounter = 0;
 
 exports.config = {
     //
@@ -236,8 +237,9 @@ exports.config = {
     /**
      * Runs before a Cucumber feature
      */
-    // beforeFeature: function (uri, feature, scenarios) {
-    // },
+    beforeFeature: function(uri, feature, scenarios) {
+        scenarioCounter = 0;
+    },
     /**
      * Runs before a Cucumber scenario
      */
@@ -261,8 +263,10 @@ exports.config = {
     /**
      * Runs after a Cucumber scenario
      */
-    // afterScenario: function (uri, feature, scenario, result, sourceLocation) {
-    // },
+    afterScenario: function(uri, feature, scenario, result, sourceLocation) {
+        scenarioCounter += 1;
+        addArgument('Scenario #', scenarioCounter);
+    },
     /**
      * Runs after a Cucumber feature
      */
