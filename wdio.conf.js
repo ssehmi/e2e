@@ -1,3 +1,4 @@
+const { addArgument } = require('@wdio/allure-reporter').default;
 const debug = !!process.env.DEBUG;
 const execArgv = debug ? ['--inspect'] : [];
 const stepTimout = debug ? 24 * 60 * 60 * 1000 : 6000;
