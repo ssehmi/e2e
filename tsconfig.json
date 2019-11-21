@@ -2,17 +2,20 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "*": [ "./*" ],
+            "*": ["./*"],
             "src/*": ["./src/*"]
         },
         "typeRoots": ["./types"],
-        "types": ["node", "@wdio/sync", "chai", "@wdio/cucumber-framework"],
+        "types": [
+            "node",
+            "@wdio/sync",
+            "chai",
+            "@wdio/cucumber-framework",
+            "reflect-metadata"
+        ],
         "target": "es5",
         "lib": ["es2018", "dom"],
         "experimentalDecorators": true
     },
-    "include": [
-        "./src/**/*.ts"
-    ]
+    "include": ["./src/**/*.ts"]
 }
-

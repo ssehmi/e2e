@@ -14,6 +14,7 @@
         "@types/chai": "^4.2.3",
         "@types/cucumber": "^4.0.7",
         "@types/jsdom": "^12.2.4",
+        "@types/reflect-metadata": "^0.1.0",
         "@types/webdriverio": "^5.0.0",
         "@wdio/allure-reporter": "^5.15.2",
         "@wdio/cli": "^5.15.2",
