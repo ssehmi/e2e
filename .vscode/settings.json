@@ -9,7 +9,7 @@
     "debug.node.autoAttach": "off",
     "diffEditor.ignoreTrimWhitespace": true,
     "diffEditor.renderSideBySide": true,
-    "cucumberautocomplete.steps": ["src/step_definitions/**/*.ts"],
+    "cucumberautocomplete.steps": ["src/stepDefinitions/**/*.ts"],
     "cucumberautocomplete.syncfeatures": "src/features/**/*feature",
     "cucumberautocomplete.strictGherkinCompletion": true,
     "cucumberautocomplete.strictGherkinValidation": true,
