@@ -33,7 +33,7 @@
         "webdriverio": "^5.15.2"
     },
     "dependencies": {
-        "jsdom": "^15.2.0",
+        "jsdom": "^16.5.0",
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13"
     }
